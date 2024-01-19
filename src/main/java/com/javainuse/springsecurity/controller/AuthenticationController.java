@@ -4,6 +4,7 @@ import com.javainuse.springsecurity.config.CustomUserDetailsService;
 import com.javainuse.springsecurity.config.JwtUtil;
 import com.javainuse.springsecurity.model.AuthenticationRequest;
 import com.javainuse.springsecurity.model.AuthenticationResponse;
+import com.javainuse.springsecurity.model.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,5 +40,10 @@ public class AuthenticationController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(token));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
     }
 }

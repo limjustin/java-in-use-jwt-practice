@@ -34,7 +34,7 @@ public class HttpBasicSecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/helloadmin").hasRole("ADMIN")
                                 .requestMatchers("/hellouser").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/authenticate").permitAll()
+                                .requestMatchers("/authenticate", "/register").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling((exceptionHandling) ->
